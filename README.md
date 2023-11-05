@@ -1,7 +1,24 @@
-To quickstart your app, run the following command: 
+# TVUX.ME API
 
-```bash
-npx @ampt/cli clone vulananh2001568591/simple-b-backend
+TVUX.ME API built with the [Node.js](https://nodejs.org) framework [Express.js](https://expressjs.com).
+
+### Running the app in development mode
+
+```
+yarn dev
 ```
 
-Happy coding!
+### Building the app
+
+```
+yarn build
+```
+
+### Running the app in production mode
+
+```
+yarn start
+```
+
+### ROADMAP
+- a lots
