@@ -1,6 +1,7 @@
-import { http } from "@ampt/sdk";
-import express, { Router } from "express";
-
+const ampt = require('@ampt/sdk');
+const http = require('http')(ampt);
+const express = require('express');
+const Router = require('Router')(express);
 const app = express();
 
 const auth = (req, res, next) => {
