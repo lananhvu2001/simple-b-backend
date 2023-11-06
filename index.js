@@ -27,4 +27,4 @@ api.post("/submit", async (req, res) => {
 });
 
 app.use("/api", api);
-http.useNodeHandler(app);
+http.node.use(app);
