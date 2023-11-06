@@ -1,7 +1,7 @@
-import express, { Router } from "express";
+import express from "express";
 const http = require('http');
 const app = express();
-
+const Router = require('Router');
 const api = Router();
 
 api.get("/hello", (req, res) => {
