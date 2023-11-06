@@ -1,5 +1,5 @@
 const ampt = require('@ampt/sdk');
-const http = require('http')(ampt);
+const http = require('http');
 const express = require('express');
 const Router = require('Router')(express);
 const app = express();
