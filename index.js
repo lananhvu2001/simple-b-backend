@@ -1,14 +1,36 @@
-const http = require('http');
-const express = require('express');
-const app = express();
-const Router = express.Router();
-const api = Router();
+import { http } from "@ampt/sdk";
+import express, { Router } from "express";
 
-api.get("/hello", (req, res) => {
+const app = express();
+
+const auth = (req, res, next) => {
+  const { headers } = req;
+
+  if (!headers["authorization"]) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  req.context = {
+    userId: "123",
+  };
+
+  next();
+};
+
+const privateApi = Router();
+privateApi.use(auth);
+
+const publicApi = Router();
+
+publicApi.get("/hello", (req, res) => {
   return res.status(200).send({ message: "Hello from the public api!" });
 });
 
-api.get("/greet/:name", (req, res) => {
+privateApi.get("/hello", (req, res) => {
+  return res.status(200).send({ message: "Hello from the private api!" });
+});
+
+publicApi.get("/greet/:name", (req, res) => {
   const { name } = req.params;
 
   if (!name) {
@@ -18,13 +40,14 @@ api.get("/greet/:name", (req, res) => {
   return res.status(200).send({ message: `Hello ${name}!` });
 });
 
-api.post("/submit", async (req, res) => {
+publicApi.post("/submit", async (req, res) => {
   return res.status(200).send({
     body: req.body,
     message: "You just posted data",
   });
 });
 
-app.use("/api", api);
+app.use("/api", publicApi);
+app.use("/admin", privateApi);
 
-http.node.use(app);
+http.useNodeHandler(app);
